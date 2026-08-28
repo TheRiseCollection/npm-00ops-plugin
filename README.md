@@ -219,6 +219,33 @@ Contributions, ideas, and bug reports are welcome.
 - Optional smarter normalization modes (e.g. handling mixed-case commands).
 - Quality-of-life helpers around common workflows (e.g. `git` wrappers).
 
+## Development
+
+```
+node bin/00ps.js LS -la     # run it straight from source, no install
+npm test                    # bin/00ps.js --help
+npm link                    # put `00ps` on your PATH while iterating
+```
+
+The whole tool is one file with no dependencies, so there is no build step and
+nothing to watch. Run it against a real shell before publishing — the failure mode
+that matters is a command that runs *differently*, not one that fails to run.
+
+## Decisions of record
+
+* **Zero dependencies, and that is a feature.** This is a shell wrapper people put in
+  front of every command they type. Each dependency it took on would be third-party
+  code sitting between the user and their shell, so it takes none, and `node >= 14`
+  is the only requirement.
+
+* **Only the command name is lowercased.** Arguments, paths and flags pass through
+  untouched, because `LS /Users/Joshua` means a lowercase `ls` and a path whose case
+  is load-bearing. Normalising the whole line would corrupt exactly the inputs people
+  care about.
+
+* **It wraps, it does not replace.** 00PS execs the real command and gets out of the
+  way; it has no opinion about what runs and adds no shell of its own.
+
 ## License
 
 MIT
