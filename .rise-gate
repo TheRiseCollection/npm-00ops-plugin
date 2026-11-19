@@ -1,0 +1,6 @@
+# Parses every tracked .js file, then runs the CLI and requires its usage text.
+files=$(git ls-files '*.js' | grep -v node_modules)
+[ -n "$files" ] || { echo "no tracked .js files"; exit 1; }
+echo "$files" | xargs -n1 node --check || exit 1
+node bin/00ps.js --help | grep -q '^Usage:' || { echo "00ps --help did not print usage"; exit 1; }
+echo "$(echo "$files" | wc -l | tr -d ' ') tracked files parse, --help prints usage"
