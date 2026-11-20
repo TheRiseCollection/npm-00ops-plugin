@@ -1,6 +1,6 @@
 {
   "name": "00ps",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A CLI utility that allows shell commands typed in CAPS LOCK to execute correctly by normalizing casing.",
   "main": "bin/00ps.js",
   "bin": {
